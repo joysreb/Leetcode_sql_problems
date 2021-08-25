@@ -1,0 +1,5 @@
+--dense_rank() consecutive ranking
+
+select Score as score,dense_rank() over(order by Score DESC) as 'Rank' 
+from Scores
+order by Score DESC;
