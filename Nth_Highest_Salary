@@ -1,11 +1,16 @@
+The offset specifies the offset of the first row to return. The offset of the first row is 0, not 1.
+The row_count specifies the maximum number of rows to return.
+
+
 CREATE FUNCTION getNthHighestSalary(N INT) RETURNS INT
 BEGIN
 DECLARE M INT;
 SET M=N-1;
   RETURN (
       # Write your MySQL query statement below.
-      
-      SELECT DISTINCT Salary FROM Employee ORDER BY Salary DESC LIMIT M, 1
+       --limit(offset,no of rows to return)
+      SELECT DISTINCT Salary FROM Employee ORDER BY Salary DESC LIMIT M, 1  
+     
       
   );
 END
