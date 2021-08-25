@@ -1,0 +1,14 @@
++----+-------+--------+-----------+
+| Id | Name  | Salary | ManagerId |
++----+-------+--------+-----------+    (SELF JOIN)
+| 1  | Joe   | 70000  | 3         |
+| 2  | Henry | 80000  | 4         |
+| 3  | Sam   | 60000  | NULL      |
+| 4  | Max   | 90000  | NULL      |
++----+-------+--------+-----------+
+write a SQL query that finds out employees who earn more than their managers. For the above table, Joe is the only employee who earns more than his manager.
+
+SELECT f.Name as 'Employee'
+	FROM Employee e
+	INNER JOIN Employee f on e.Id = f.ManagerId
+	WHERE f.Salary > e.Salary
