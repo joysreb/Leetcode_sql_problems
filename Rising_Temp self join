@@ -1,0 +1,4 @@
+select weather.id as 'Id'
+from weather
+join weather f on DATEDIFF(weather.recorddate,f.recorddate)=1
+AND Weather.Temperature>f.Temperature;
