@@ -1,0 +1,12 @@
+--Display employee details who are getting more salary than their manager
+
+select e1.ename as 'employee',e2.ename as 'manager'
+from emp e1,emp e2
+where e1.mgrid=e1.empid and e1.salary>e2.salary;
+
+
+--Display the employee details who joined before their managers
+
+select e1.ename as 'employee',e2.ename as 'manager'
+from emp e1,emp e2
+where e1.mgrid=e2.empid and e1.doj<e2.doj;
