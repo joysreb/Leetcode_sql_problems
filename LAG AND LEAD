@@ -1,0 +1,51 @@
+--[LAG(expression [,offset[,default_value]]) OVER(ORDER BY columns)
+--LAG() takes three arguments: the name of the column or an expression from which the value is obtained, the number of rows to skip (offset) above, and the default value to be returned if the stored value obtained from the row above is empty. 
+--Only the first argument is required. The third argument (default value) is allowed only if you specify the second argument, the offset.
+--simple example
+
+1.SELECT seller_name, sale_value,
+  LAG(sale_value) OVER(ORDER BY sale_value) as previous_sale_value
+FROM sale;
+2.SELECT seller_name, sale_value,
+  LEAD(sale_value) OVER(ORDER BY sale_value) as next_sale_value
+FROM sale;]
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+1)employee_id	 year	quarter	bonus
+1         	 2017	  1	      100
+1	           2017	  2	      250
+1	           2017	  3	       60
+1	           2017	  4	       20
+1	           2018	  1	       80
+1	           2018	  2	       80
+1	           2018	  3	        0
+1	           2018	  4         0
+1	           2019	  1	        0
+1	           2019	  2	      100
+1	           2019	  3	        0
+1	           2019	  4	      150
+
+
+
+solution:
+SELECT year, quarter,
+  LAG(bonus,4) OVER(ORDER BY year,quarter) AS previous_bonus,
+ bonus AS current_bonus,
+  LEAD(bonus,4) OVER(ORDER BY year,quarter) AS next_bonus 
+FROM employee
+WHERE employee_id=1;
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+2)product_id	month	count
+1	1	125
+1	2	135
+1	3	NULL
+1	4	90
+2	1	150
+2	2	100
+2	3	185
+2	4	190
+
+SELECT product_id, month,
+  LAG(count,1,0) OVER(PARTITION BY product_id ORDER BY month) AS previous_count,
+  count AS current_count,
+  count - LAG(count,1,0) OVER(PARTITION BY product_id ORDER BY month) AS difference
+FROM sale_product;
